@@ -1,0 +1,36 @@
+.org-chart-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.org-reports {
+    display: flex;
+    flex: 1;
+}
+
+.org-org-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.org-h-bar-container {
+    display: flex;
+}
+
+.org-h-bar {
+    border-bottom: 1px solid #ADB5BD;
+    flex: 1;
+}
+
+.org-border {
+    border: 1px solid #ADB5BD;
+}
+
+.org-border-dashed {
+    border: thin dashed #ADB5BD;
+}
+
+.transparent {
+    border-color: transparent;
+}

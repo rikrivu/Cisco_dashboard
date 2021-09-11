@@ -1,0 +1,58 @@
+.home-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    font-family: CiscoSansTT;
+
+    .home-content {
+        text-align: center;
+
+        .logo-height {
+            height: 55px;
+        }
+
+        .description {
+            display: flex;
+            justify-content: center;
+            color: #6C757D;
+            margin-top: 20px;
+
+            > div {
+                width: 57%;
+            }
+        }
+
+        .search {
+            position: relative;
+            margin-top: 20px;
+
+            .search-input {
+                width: 80%;
+                border-radius: 5px;
+                border: 2px solid #F2F2F2;
+                height: 30px;
+                padding: 16px 50px 16px 30px;
+                font-size: 20px;
+                color: #1E4471;
+                font-weight: bold;
+            }
+
+            .search-input::placeholder {
+                color: #58585B;
+            }
+
+            mat-icon {
+                position: absolute;
+                font-size: 40px;
+                right: 75px;
+                top: 12px;  
+            }
+
+            mat-icon:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+}

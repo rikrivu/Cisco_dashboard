@@ -1,0 +1,16 @@
+<div class="org-chart-wrapper">
+  <app-org-chart-node [productHierarchy]="productHierarchy"></app-org-chart-node>
+  <div class="org-reports" *ngIf="productHierarchy.children.length">
+    <div class="org-org-container" *ngFor="let child of productHierarchy.children; let i=index">
+      <div class="org-h-bar-container">
+        <div class="org-h-bar" [class.transparent]="i === 0"
+        [class.org-border-dashed]="child.dashedBorder"></div>
+        <!-- <div class="org-border" [class.org-border-dashed]="child.dashedBorder"></div> -->
+        <div class="org-h-bar"
+        [class.transparent]="i === productHierarchy.children.length - 1"
+        [class.org-border-dashed]="child.dashedBorder"></div>
+      </div>
+      <app-org-chart [productHierarchy]="child"></app-org-chart>
+    </div>
+  </div>
+</div>

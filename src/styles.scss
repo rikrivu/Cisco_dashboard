@@ -1,0 +1,105 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$Frontend-primary: mat-palette($mat-indigo);
+$Frontend-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$Frontend-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$Frontend-theme: mat-light-theme($Frontend-primary, $Frontend-accent, $Frontend-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($Frontend-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+@import './assets/scss/fonts';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: CiscoSansTT; letter-spacing: 0.03em; }
+
+.tile-title {
+    // font-family: CiscoSansTT;
+    font-weight: bold;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ADB5BD;
+    letter-spacing: 0.25em;
+}
+
+#contentDiv {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.jqx-chart-legend-text {
+    display: none !important;
+}
+
+.jqx-chart-label-text, .jqx-chart-axis-text, .jqx-chart-title-text, .jqx-chart-tooltip-text {
+    font-size: 12px !important;
+    font-family: CiscoSansTT !important;
+}
+
+.jqx-chart-axis-text, .jqx-chart-title-text {
+    color: #ADB5BD !important;
+    fill:  #ADB5BD !important;
+}
+
+.jqx-chart-axis-text {
+    margin-right: 5px !important;
+}
+
+.jqx-chart-title-text {
+    font-weight: bold !important;
+}
+
+.jqx-chart-tooltip-text {
+    text-align: left !important;
+       
+    .corp-name {
+        font-weight: bold;
+        color: #6C757D;
+        padding-top: 5px !important;
+    }
+
+    .revenue {
+        margin-top: 3px;
+        font-size: 10px;
+        color: #666666;
+    }
+
+    .amount {
+        color: #00BCEB;
+    }
+}
+
+
+.jqx-rc-all {
+    border: none !important;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
+                0 1px 2px rgba(0, 0, 0, .23) !important;
+}
+
+.chart-heading {
+    margin: 0 20px;
+    padding: 20px 0;
+}
+
+.mat-checkbox-checked.mat-primary .mat-checkbox-background {
+    background-color: #1E4471 !important;
+}

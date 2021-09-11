@@ -1,0 +1,24 @@
+<app-loader></app-loader>
+<div class="home-parent">
+  <div class="home-content">
+    <img class="logo-height" src="../../../assets/logos/cisco-blue-logo.png" alt="cisco-blue-logo.png">
+    <div class="description">
+      <div>
+        Product Knowledge Graph enables you to search complete product
+        related informationat a single place
+      </div>
+    </div>
+    <div class="search" *ngIf="prodList">
+      <input type="text" class="search-input" [(ngModel)]="selectedProd" [matAutocomplete]="search"
+      placeholder="Search Product Family">
+      <mat-autocomplete #search="matAutocomplete" (optionSelected)="prodSelect($event)">
+        <mat-option *ngFor="let product of (prodList.Products | prodSearch : selectedProd)"
+        [value]="product">
+          {{product}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon *ngIf="!selectedProd">search</mat-icon>
+      <mat-icon *ngIf="selectedProd" (click)="selectedProd = ''">clear</mat-icon>
+    </div>
+  </div>
+</div>

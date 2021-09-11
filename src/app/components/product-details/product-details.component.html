@@ -1,0 +1,386 @@
+<app-loader></app-loader>
+<nav class="navbar" >
+  <div class="left-nav">
+    <img src="../../../assets/logos/cisco-blue-logo.png" alt="cisco-blue-logo.png" class="logo-height">
+    <div class="search" *ngIf="prodList">
+      <input type="text" [(ngModel)]="selectedProd" [matAutocomplete]="search" class="search-input"
+      placeholder="Search Product Family">
+      <mat-autocomplete #search="matAutocomplete" (optionSelected)="prodSelect($event)">
+        <mat-option *ngFor="let product of (prodList.Products | prodSearch : selectedProd)"
+        [value]="product">
+          {{product}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-icon *ngIf="!selectedProd">search</mat-icon>
+      <mat-icon *ngIf="selectedProd" (click)="selectedProd = ''">clear</mat-icon>
+    </div>
+  </div>
+  <button *ngIf="!filterPanelOpen" type="button" class="no-btn" (click)="toggleFilterPanel()">
+    <mat-icon matTooltip="Filter Items">menu</mat-icon>
+  </button>
+</nav>
+
+<div *ngIf="filterPanelOpen" class="filter-panel">
+  <div class="title-panel">
+    <div>User Preferences</div>
+    <button type="button" class="no-btn" (click)="toggleFilterPanel()">
+      <mat-icon matTooltip="Close Panel">clear</mat-icon>
+    </button>
+  </div>
+
+  <div class="filter-opts">
+    <form [formGroup]="column1Form" *ngIf="column1Form">
+      <div *ngFor="let option of (prodDetailsService.column1$ | async)">
+        <mat-checkbox [formControlName]="option.option" color="primary">
+          <span class="option" [class.disbled-opt]="option.option === 'Summary'">
+            {{option.option}}
+          </span>
+        </mat-checkbox>
+      </div>
+    </form>
+    <form [formGroup]="column2Form" *ngIf="column2Form">
+      <div *ngFor="let option of (prodDetailsService.column2$ | async)">
+        <mat-checkbox [formControlName]="option.option" color="primary">
+          <span class="option">{{option.option}}</span>
+        </mat-checkbox>
+      </div>
+    </form>
+    <form [formGroup]="column3Form" *ngIf="column3Form">
+      <div *ngFor="let option of (prodDetailsService.column3$ | async)">
+        <mat-checkbox [formControlName]="option.option" color="primary">
+          <span class="option">{{option.option}}</span>
+        </mat-checkbox>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="prod-details" *ngIf="enableView">
+  
+  <!-- 1st Column Starts -->
+  <div>
+    <div *ngFor="let tile of (prodDetailsService.column1$ | async)">
+      <div [ngSwitch]="tile.option" [class.hide-tile]="!tile.selected">
+
+        <div *ngSwitchCase="'Summary'">
+          <div class="summary">
+            <div class="tile-title">Summary</div>
+            <div class="tile-description">{{summary.description}}</div>
+            <div class="tile-btns">
+              <a class="link-btn" [attr.href]="summary.WhitePaperLink"
+              target="_blank" [matTooltip]="summary.WhitePaperLink">
+                White Paper
+              </a>
+              <a class="link-btn" [attr.href]="summary.DataSheetLink"
+              target="_blank" [matTooltip]="summary.DataSheetLink">
+                Data Sheets
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Product Management'">
+          <div class="prod-manage">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 1)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">Product Management</div>
+            <div class="management">
+              <div *ngFor="let manager of prodManagement">
+                <a class="manager-link" [attr.href]="manager.Directory" target="_blank">
+                  <div class="manager-badge">
+                    <div class="manager-initials">{{getInitials(manager.Manager)}}</div>
+                  </div>
+                  <div class="manager-name">{{manager.Manager}}</div>
+                  <div class="manager-title">{{manager.Designation}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Product Specifications'">
+          <div class="prod-specs">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 1)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              Product Specifications
+            </div>
+            <div>
+              <div class="tile-label">PID Name</div>
+              <div class="pid-search">
+                <input type="text" [(ngModel)]="specsSelectedPid" [matAutocomplete]="specs"
+                #specsName>
+                <mat-autocomplete #specs="matAutocomplete" [displayWith]="pidDisplayFn"
+                (optionSelected)="pidSelect($event, 'specs')">
+                  <mat-option *ngFor="let pid of
+                  (specsPidList | pidSearch : {'type': 'specs', 'name': specsName.value})"
+                  [value]="pid">
+                    {{pid.Model}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon>search</mat-icon>
+              </div>
+              <div class="weight-temp">
+                <div class="spec-details">
+                  <img src="../../../assets/logos/weight.png" alt="weight.png" class="tile-icons">
+                  <div>
+                    <div class="tile-label">
+                      Weight
+                      <div class="tile-details">{{specsSelectedPid.Weight}}</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="spec-details">
+                  <img src="../../../assets/logos/thermometer.png" alt="thermometer.png"
+                  class="tile-icons">
+                  <div>
+                    <div class="tile-label">
+                      Operating Temperature
+                      <div class="tile-details">{{specsSelectedPid.Dimensions}}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="spec-details">
+                <img src="../../../assets/logos/time-left.png" alt="time-left.png" class="tile-icons">
+                <div>
+                  <div class="tile-label">
+                    Dimensions
+                    <div class="tile-details">{{specsSelectedPid.Dimension}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Related Products'">
+          <div class="rel-prods">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 1)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              Related Products
+            </div>
+            <div *ngIf="relatedProds.length">
+              <a *ngFor="let product of relatedProds" [attr.href]="product.Link"
+              target="_blank" [matTooltip]="product.Link"
+              class="rel-prod-link">
+                {{product.Name}}
+              </a>
+            </div>
+            <div *ngIf="!relatedProds.length">No Data Available</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- 1st Column Ends -->
+
+  <!-- 2nd Column Starts -->
+  <div>
+    <div *ngFor="let tile of (prodDetailsService.column2$ | async)">
+      <div [ngSwitch]="tile.option" [class.hide-tile]="!tile.selected">
+
+        <div *ngSwitchCase="'Quarterly Bookings'">
+          <div class="chart">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 2)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <app-test-line-chart></app-test-line-chart>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Top Customers By Bookings'">
+          <div class="chart">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 2)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <app-test-bar-chart></app-test-bar-chart>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Connected Quality'">
+          <div class="con-quality">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 2)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              Connected Quality
+            </div>
+            <div class="con-quality-inside">
+              <div class="tile-label">
+                Total SRs
+                <div class="tile-details">{{checkNA(connectedQuality.Service_requests)}}</div>
+              </div>
+              <div class="tile-label">
+                Total RMAs
+                <div class="tile-details">{{checkNA(connectedQuality.Returns)}}</div>
+              </div>
+              <div class="tile-label">
+                Total Bugs
+                <div class="tile-details">{{checkNA(connectedQuality.Bugs)}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- 2nd Column Ends -->
+
+  <!-- 3rd Column Starts -->
+  <div>
+    <div *ngFor="let tile of (prodDetailsService.column3$ | async)">
+      <div [ngSwitch]="tile.option" [class.hide-tile]="!tile.selected">
+
+        <div *ngSwitchCase="'E-Genie Attributes'">
+          <div class="e-genie">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 3)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              E-Genie Attributes
+              <div class="pid-count">
+                (Total PIDs: {{pidCount}})
+              </div>
+            </div>
+            <div>
+              <div class="tile-label">PID Name</div>
+              <div class="pid-search">
+                <input type="text" [(ngModel)]="eGenieSelectedPid" [matAutocomplete]="eGenie"
+                #eGenieName>
+                <mat-autocomplete #eGenie="matAutocomplete" [displayWith]="pidDisplayFn"
+                (optionSelected)="pidSelect($event, 'eGenie')">
+                  <mat-option *ngFor="let pid of
+                  (eGeniePidList | pidSearch : {'type': 'eGenie', 'name': eGenieName.value})"
+                  [value]="pid">
+                    {{pid.PID}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-icon>search</mat-icon>
+              </div>
+              <div class="tile-label">
+                Product Description
+                <div class="tile-details">{{eGenieSelectedPid.Description}}</div>
+              </div>
+              <div class="tile-label">
+                Category
+                <div class="tile-details">{{eGenieSelectedPid.Item_Category}}</div>
+              </div>
+              <div class="tile-label">
+                Base Price
+                <div class="tile-details">${{eGenieSelectedPid.Base_Price}}</div>
+              </div>
+              <div class="grouped-items">
+                <div class="tile-label">
+                  Item Type
+                  <div class="tile-details">{{eGenieSelectedPid.Item_Type}}</div>
+                </div>
+                <div class="tile-label">
+                  Software Type
+                  <div class="tile-details">{{eGenieSelectedPid.Software_Type}}</div>
+                </div>
+              </div>
+              <div class="grouped-items">
+                <div class="tile-label">
+                  Software Stack
+                  <div class="tile-details">{{eGenieSelectedPid.Software_Stack}}</div>
+                </div>
+                <div class="tile-label">
+                  Monetization Type
+                  <div class="tile-details">{{eGenieSelectedPid.Monetization_Type}}</div>
+                </div>
+              </div>
+              <div class="tile-label">
+                RO Flag
+                <div class="tile-details">{{eGenieSelectedPid.RO_Flag}}</div>
+              </div>
+              <div class="tile-btns">
+                <a class="link-btn" [attr.href]="eGenieSelectedPid.EGenieLink"
+                target="_blank" [matTooltip]="eGenieSelectedPid.EGenieLink">
+                E-Genie
+              </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Product Hierarchy'">
+          <div class="prod-hierarchy">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 3)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              product hierarchy
+            </div>
+            <div class="scrollable">
+              <app-org-chart [productHierarchy]="productHierarchy"></app-org-chart>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'Use Cases'">
+          <div class="custom-tree">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 3)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              Use Cases
+            </div>
+            <div>
+              <app-tree [tree]="useCase"></app-tree>
+            </div>
+          </div>
+        </div>
+
+        <div *ngSwitchCase="'TMS Hierarchy'">
+          <div class="custom-tree">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 3)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              TMS hierarchy
+            </div>
+            <div *ngIf="tmsTree">
+              <app-tree [tree]="tmsTree"></app-tree>
+            </div>
+            <div *ngIf="!tmsTree" style="padding-top: 15px;">No Data for Selected Product</div>
+          </div>
+        </div>
+    
+        <div *ngSwitchCase="'BE Hierarchy'">
+          <div class="custom-tree">
+            <button type="button" class="no-btn close-tile" matTooltip="Close"
+            (click)="closeTile(tile, 3)">
+              <mat-icon>clear</mat-icon>
+            </button>
+            <div class="tile-title">
+              BE hierarchy
+            </div>
+            <div>
+              <app-tree [tree]="beTree"></app-tree>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- 3rd Column Ends -->
+
+</div>

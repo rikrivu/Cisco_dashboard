@@ -1,0 +1,368 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #F2F2F2;
+
+    .left-nav {
+        display: flex;
+        width: 80%;
+
+        > * {
+            margin: 0 15px;
+        }
+
+        .logo-height {
+            height: 30px;
+        }
+    
+        .search {
+            position: relative;
+            width: 50%;
+    
+            .search-input {
+                border-radius: 5px;
+                border: 2px solid #F2F2F2;
+                padding: 10px 25px 10px 15px;
+                font-size: 14px;
+                color: #1E4471;
+                font-weight: bold;
+                font-family: CiscoSansTT;
+                width: 90%;
+            }
+    
+            .search-input::placeholder {
+                color: #58585B;
+            }
+
+            mat-icon {
+                position: absolute;
+                font-size: 18px;
+                right: 3%;
+                top: 22%; 
+            }
+        }
+    }
+
+}
+
+.filter-panel {
+    padding: 20px 30px;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.05),
+                0px 10px 12px rgba(0, 0, 0, 0.1);
+
+    .title-panel {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #F2F2F2;
+
+        > div {
+            font-weight: bold;
+            font-size: 14px;
+            color: #ADB5BD;
+        }
+        
+        mat-icon {
+            font-size: 18px;
+        }
+    }
+
+    .filter-opts {
+        display: flex;
+        flex-wrap: wrap;
+
+        > form {
+            flex: 1;
+            margin: 10px 0;
+
+            .option {
+                text-transform: uppercase;
+                font-family: CiscoSansTT;
+                font-weight: bold;
+                font-size: 12px;
+                line-height: 16px;
+                letter-spacing: 0.06em;
+                color: #6C757D;
+            }
+
+            .disbled-opt {
+                color: #ADB5BD;
+            }
+        }
+    }
+}
+
+.prod-details {
+    background: #E5E5E5;
+    display: flex;
+    // flex-wrap: wrap;
+    padding: 20px 20px;
+
+    > div {
+        flex: 1;
+    }
+
+    .summary, .e-genie, .prod-hierarchy, .prod-specs, .rel-prods, .con-quality, .custom-tree,
+    .prod-manage, .chart {
+
+        position: relative;
+        background: #FFFFFF;
+        margin: 10px 10px 20px 10px;
+        box-shadow: 0px 20px 20px rgba(0, 0, 0, 0.05),
+                    0px 10px 12px rgba(0, 0, 0, 0.1);
+
+        .close-tile {
+            position: absolute;
+            right: 10px;
+            top: 15px;
+
+            > mat-icon {
+                font-size: 18px;
+            }
+        }
+
+        > div {
+            padding: 20px 30px 0 30px;
+        }
+
+        > div:nth-last-child(1) {
+            padding-bottom: 30px;
+        }
+    }
+
+    .e-genie {
+
+        .pid-count {
+            margin-top: 5px;
+            font-weight: 300;
+        }
+
+        .grouped-items {
+            display: flex;
+            > div {
+                width: 50%;
+            }
+        }
+    }
+    
+    .prod-manage {
+        .management {
+            display: flex;
+            flex-wrap: wrap;
+
+            > div {
+                flex: 1 50%;
+                text-align: center;
+                margin: 5px 0;
+
+                .manager-link{
+                    text-decoration: none;
+                }
+
+                .manager-badge {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .manager-initials, .manager-name {
+                    font-size: 14px;
+                    line-height: 19px;
+                }
+
+                .manager-initials {
+                    color: #6C757D;
+                    background: #E1EFF7;
+                    border: none;
+                    border-radius: 50%;
+                    padding: 7px;
+                    margin-bottom: 5px;
+                }
+
+                .manager-name {
+                    color: #343A40;
+                    margin-bottom: 3px;
+                }
+
+                .manager-title {
+                    font-weight: 350;
+                    font-size: 12px;
+                    line-height: 12px;
+                    color: #666666;
+                }
+            }
+        }
+    }
+
+    .prod-specs {
+
+        .weight-temp {
+            display: flex;
+            justify-content: space-between;
+
+            > div:nth-last-child(1) {
+                width: 60%;
+            }
+        }
+
+        .spec-details {
+            display: flex;
+            width: 50%;
+        }
+    }
+
+    .rel-prods {
+        .rel-prod-link {
+            font-weight: 800;
+            font-size: 14px;
+            line-height: 19px;
+            color: #1E4471;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+            border-bottom: 1px solid #F2F2F2;
+        }
+
+        .rel-prod-link:nth-last-child(1) {
+            border-bottom: none;
+        }
+
+        .rel-prod-link:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .con-quality {
+        .con-quality-inside {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .custom-tree {
+        > div:nth-last-child(1) {
+            padding-top: 0;
+        }
+    }
+    
+}
+
+.no-btn {
+    border: none;
+    background: none;
+
+    :hover {
+        cursor: pointer;
+    }
+}
+
+.tile-description, .tile-label {
+    font-family: CiscoSansTT;
+    font-size: 14px;
+    font-weight: 350;
+    color: #6C757D;
+}
+
+.tile-description {
+    line-height: 20px;
+}
+
+.tile-label {
+    line-height: 12px;
+    padding-bottom: 10px;
+
+    > div {
+        margin: 5px 0;
+    }
+}
+
+.tile-details {
+    font-family: CiscoSansTT;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #343A40;
+
+}
+
+.pid-search {
+    position: relative;
+    margin: 10px 0 20px 0;
+
+    > input {
+        border-radius: 5px;
+        border: 2px solid #F2F2F2;
+        padding: 5px 25px 5px 10px;
+        width: 53%;
+        font-family: CiscoSansTT;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    mat-icon {
+        position: absolute;
+        font-size: 22px;
+        top: 6px;
+        right: 145px;
+    }
+}
+
+.tile-btns {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link-btn {
+    text-decoration: none;
+    border: 1px solid #212529;
+    border-radius: 15px;
+    font-family: CiscoSansTT;
+    font-weight: bold;
+    font-size: 14px;
+    color: #212529;
+    padding: 5px 20px;
+}
+
+.link-btn:hover {
+    cursor: pointer;
+}
+
+.tile-icons {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+}
+
+.hide-tile {
+    display: none;
+}
+
+.scrollable {
+    overflow-x: scroll;
+    max-width: 386px;
+    display: flex;
+    padding: 15px !important;
+}
+.scrollable::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #f7f8fa !important;
+  }
+.scrollable::-webkit-scrollbar:hover {
+    cursor: pointer;
+}
+.scrollable::-webkit-scrollbar-thumb {
+background-color: #dbe1e8 !important;
+border: 2px solid transparent !important;
+border-radius: 9px !important;
+background-clip: content-box;
+}
+.scrollable::-webkit-scrollbar-thumb:hover {
+    width: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,64 @@
+.full-width {
+    width: 100%;
+}
+
+.v-bord-up, .v-bord-down {
+    border-left: 2px solid #CED4DA;
+    margin-left: 8px;
+    height: 26px;
+}
+
+.h-bord {
+    height: 0px;
+    margin-left: 8px;
+    border-top: 2px dashed #CED4DA;
+    width: 25px;
+}
+
+.child {
+    display: flex;
+    margin-top: 18px;
+    font-family: CiscoSansTT;
+    font-weight: bold;
+    font-size: 14px;
+    color: #343A40;
+
+    .node-bullet {
+        height: 14px;
+        width: 14px;
+        border-radius: 50%;
+        border: 2px solid #CED4DA;
+        margin-right: 10px;
+    }
+
+    .node-name {
+        width: 92%;
+    }
+}
+
+.root {
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.brk-col {
+    display: flex;
+    flex-direction: row;
+}
+
+.all-bord {
+    display: flex;
+    flex-direction: column;
+
+    .v-bord-down {
+        flex: 1;
+    }
+}
+
+.dashed {
+    border-left: 2px dashed #CED4DA !important;
+}
+
+.circle-dashed {
+    border: 2px dashed #CED4DA !important;
+}

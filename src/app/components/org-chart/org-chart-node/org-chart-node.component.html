@@ -1,0 +1,12 @@
+<div class="org-each">
+  <div class="org-v-bar" *ngIf="productHierarchy.isChild"
+  [class.org-border-dashed]="productHierarchy.dashedBorder"></div>
+  <div class="org-box org-border" [class.org-border-dashed]="productHierarchy.dashedBorder">
+    <div class="org-content">
+      <div>{{productHierarchy.name}}</div>
+      <div>{{productHierarchy.designation}}</div>
+    </div>
+  </div>
+  <div class="org-v-bar" *ngIf="productHierarchy.children.length"
+  [class.org-border-dashed]="productHierarchy.dashedBorder"></div>
+</div>

@@ -1,0 +1,21 @@
+<div class="full-width">
+  <div class="child" [class.root]="tree.isRoot">
+    <div class="node-bullet" [class.circle-dashed]="tree.isChild"></div>
+    <div class="node-name">{{tree.name}}</div>
+  </div>
+  <div *ngIf="tree.children.length">
+    <div>
+      <div *ngFor="let child of tree.children; let i=index;" class="brk-col">
+        <div class="all-bord">
+          <div class="v-bord-up" [class.dashed]="!child.firstChild"></div>
+          <div class="h-bord"></div>
+          <div *ngIf="i !== tree.children.length - 1"
+          class="v-bord-down" [class.dashed]="!child.firstChild"></div>
+        </div>
+        <div class="full-width">
+          <app-tree [tree]="child"></app-tree>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
